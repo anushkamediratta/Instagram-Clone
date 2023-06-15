@@ -24,6 +24,7 @@ const app = express();
 app.use(express.json());
 
 app.use(require('./routes/auth'))
+app.use(require('./routes/post'))
 
 const connectToDatabase = async () => {
   try {

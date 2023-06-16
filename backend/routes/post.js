@@ -47,4 +47,51 @@ router.put("/unlike",requireLogin,(req,res)=>{
     .populate("postedBy","name")
     .then(result => res.json(result))
 })
+
+router.put("/comment", requireLogin, async (req, res) => {
+    try {
+      const comment = {
+        text: req.body.text,
+        postedBy: req.user._id
+      };
+      const result = await Post.findByIdAndUpdate(
+        req.body.postId,
+        {
+          $push: { comments: comment }
+        },
+        {
+          new: true
+        }
+      )
+        .populate("comments.postedBy", "_id email")
+        .populate("postedBy", "_id name")
+        .exec();
+  
+      return res.json(result);
+    } catch (error) {
+      return res.status(422).json({ error });
+    }
+});
+
+router.delete("/deletePost/:postId", requireLogin, async (req, res) => {
+    try {
+      const post = await Post.findOne({ _id: req.params.postId })
+        .populate("postedBy", "_id name")
+        .exec();
+  
+      if (!post) {
+        return res.status(422).json({ error: "Post not found" });
+      }
+  
+      if (post.postedBy._id.toString() === req.user._id.toString()) {
+        const result = await post.deleteOne();
+        return res.json({ result });
+      } else {
+        return res.status(401).json({ error: "Unauthorized" });
+      }
+    } catch (error) {
+      return res.status(422).json({ error });
+    }
+  });
+
 module.exports= router

@@ -1,3 +1,4 @@
+
 // const express=require('express')
 // const {default:mongoose}= require('mongoose')
 // const { MONGOURI } = require('./keys')
@@ -19,10 +20,11 @@
 const express = require('express');
 const { default: mongoose } = require('mongoose');
 const { MONGOURI } = require('./keys');
+const cors = require('cors')
 const app = express();
 
 app.use(express.json());
-
+app.use(cors())
 app.use(require('./routes/auth'))
 app.use(require('./routes/post'))
 app.use(require('./routes/user'))
@@ -38,7 +40,7 @@ const connectToDatabase = async () => {
 
 const startServer = async () => {
   try {
-    const PORT = 3000;
+    const PORT = 4000;
     await app.listen(PORT);
     console.log(`Server is running at ${PORT}`);
   } catch (err) {

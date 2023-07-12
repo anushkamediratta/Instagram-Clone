@@ -13,14 +13,16 @@ import SearchPage from "./Components/SearchPage";
 
 const App = ()=>{
   return <BrowserRouter>
-  <MainScreen/>
+  
+  
     <Routes>
-     {/* /* <Route exact path="/" element={<Signup/>} /> 
-    <Route path="/login" element={<Login />} />  */}
+     <Route exact path="/" element={<Signup/>} /> 
+    <Route path="/login" element={<Login />} />  
     <Route path="/MainScreen" element={<MainScreen/>}/>
-    {/* <Route path="/myPost" element={<MyProfile />} />
-    <Route path="/allpost" element={<AllPost/>}/> */}
-    {/* <Route path="/SearchPage" element={<SearchPage/>}/> */}
+     {/* <Route path="/myPost" element={<MyProfile />} />  */}
+    {/* <Route path="/allpost" element={<AllPost/>}/> */}
+        {/* <Route path="/SearchPage" element={<SearchPage/>}/> */}
+    <Route path="/CreatePost" element={<CreatePost/>}/>
     
     </Routes>
 </BrowserRouter>

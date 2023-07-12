@@ -9,6 +9,7 @@ import InstaPost from "./Components/PostCard"
 import Signup from "./Components/Signup"
 import MainScreen from "./Components/MainScreen";
 import SearchPage from "./Components/SearchPage";
+import UserProfile from "./Components/UserProfile";
 
 
 const App = ()=>{
@@ -16,23 +17,17 @@ const App = ()=>{
   
   
     <Routes>
-     <Route exact path="/" element={<Signup/>} /> 
+    <Route exact path="/" element={<Signup/>} /> 
     <Route path="/login" element={<Login />} />  
     <Route path="/MainScreen" element={<MainScreen/>}/>
-     {/* <Route path="/myPost" element={<MyProfile />} />  */}
-    {/* <Route path="/allpost" element={<AllPost/>}/> */}
-        {/* <Route path="/SearchPage" element={<SearchPage/>}/> */}
+    <Route path="/myPost" element={<MyProfile />} /> 
+    <Route path="/allpost" element={<AllPost/>}/>
+    <Route path="/SearchPage" element={<SearchPage/>}/>
     <Route path="/CreatePost" element={<CreatePost/>}/>
+    <Route path="/UserProfile" element={<UserProfile/>}/>
+    
     
     </Routes>
 </BrowserRouter>
-  // return <Signup/>
-  // return <Login/>
-  // // return <CreatePost/>
-  // // return <AllPost/>
-  // // return <MyProfile/>
-  // // return <Like/>
-  // // return <InstaPost/>
-  // return <MainScreen/>
 }
 export default App

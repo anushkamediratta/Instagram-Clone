@@ -7,6 +7,7 @@ import MessageIcon from '@mui/icons-material/Message';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import PersonIcon from '@mui/icons-material/Person';
+import DensityMediumIcon from '@mui/icons-material/DensityMedium';
 import { Link } from "react-router-dom";
 import { Typography } from "@mui/material";
 import { useState } from "react";
@@ -93,13 +94,17 @@ const NavBar = () => {
          <br/>
          <Container style={{display:'flex'}}>
              <PersonIcon fontSize="large"/>
-             <Link className="link">Profile
+             <Link to='/UserProfile' className="link">Profile
              </Link>
          </Container>
-      {/* Rest of the code */}
-      {/* ... */}
-      {/* ... */}
-
+         <br/>
+         <br/>
+         <br/>
+         <Container style={{display:'flex'}}>
+         <DensityMediumIcon fontSize="large"/>
+             <Link className="link">More
+             </Link>
+         </Container>
       
       <Drawer
         open={isOpen}

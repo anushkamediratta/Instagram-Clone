@@ -1,6 +1,7 @@
 import { Avatar, Typography } from "@mui/material"
 import { Container } from "react-bootstrap"
 
+
 const RightNavbar=()=>{
  return <Container >
     <div style={{display:'flex',marginTop:'5rem',marginBottom:'2rem'}}> 

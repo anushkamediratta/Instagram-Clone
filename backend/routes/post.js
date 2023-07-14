@@ -16,7 +16,7 @@ router.post("/createPost",requireLogin,(req,res)=>{
 })
 
 router.get("/allPost",requireLogin,(req,res)=>{
-    console.log("Hello");
+    
     Post.find()
         .populate("postedBy","_id name")
         .then(posts => res.json(posts))

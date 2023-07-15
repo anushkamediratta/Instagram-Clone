@@ -17,8 +17,16 @@ import SendOutlined from '@mui/icons-material/SendOutlined';
 import Face from '@mui/icons-material/Face';
 import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded';
 import { Container } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const InstaPost=({postDetail})=> {
+
+  const navigate = useNavigate();
+  const _id=postDetail.postedBy._id
+
+  const OpenUserProfile=()=>{
+    navigate('/UserProfile', {state:{id:_id}})
+  }
     
   return <Container style={{height:'30rem',width:'30rem', marginTop:'50px'}}>
 
@@ -53,7 +61,9 @@ const InstaPost=({postDetail})=> {
             sx={{ p: 0.5, border: '2px solid', borderColor: 'background.body' }}
           />
         </Box>
-        <Typography fontWeight="lg">{postDetail.postedBy.name}</Typography>
+        <Typography fontWeight="lg" onClick={OpenUserProfile}>
+           <span>{postDetail.postedBy.name}</span>
+        </Typography>
         <IconButton variant="plain" color="neutral" size="sm" sx={{ ml: 'auto' }}>
           <MoreHoriz />
         </IconButton>

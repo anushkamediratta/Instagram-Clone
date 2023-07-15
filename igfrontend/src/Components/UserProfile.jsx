@@ -8,9 +8,31 @@ import Stack from "@mui/material/Stack"
 import GridOnIcon from '@mui/icons-material/GridOn';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 
 const UserProfile=()=>{
+// usestae for handling data
+const[CurrentUser,setCurrentUser]=useState({})
+const[userpost,setUserPosts]=useState([])
+const location=useLocation();
+// fetching id from url
+const id=location.state.id
+  useEffect(()=>{
+    fetch(`http://localhost:4000/user/${id}`,{
+    method:"get",
+    headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Bearer "+localStorage.getItem("jwt")
+    }
+}).then(res=>res.json())
+.then(data=>{
+  setCurrentUser(data.user)
+  setUserPosts(data.posts)
+})
+
+},[])
 
  return <div >
  <Row>
@@ -24,13 +46,13 @@ const UserProfile=()=>{
         <div style={{display:'flex'}}>
      <Avatar
             size="sm"
-            src="https://images.unsplash.com/photo-1688637079192-8eb1d6e4a30b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyOHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+            src={CurrentUser.pic}
             sx={{ p: 0.5, border: '2px solid', borderColor:'red',height:160, width:160,marginLeft:'210px',marginTop:'30px',objectFit: 'cover',borderRadius: '50%'}}
           />
      <Container>
         <div style={{display:'flex'}}>
      <Typography style={{marginLeft:'100px',marginTop:'40px'}} variant="h6" >
-            Username
+           {CurrentUser.name}
           </Typography>
           <Button style={{height:35,width:90,marginLeft:'30px',marginTop:'40px',borderRadius:8,display: 'flex',justifyContent:"center",alignItems:"center"}}>Follow</Button>
           <Button style={{height:35,width:90,marginLeft:'9px',marginTop:'40px',borderRadius:8,backgroundColor:"lightgray",border:'1px solid lightgray',color:"black",display: 'flex',justifyContent:"center",alignItems:"center"}}>Message</Button>

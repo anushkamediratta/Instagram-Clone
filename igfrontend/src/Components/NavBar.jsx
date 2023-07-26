@@ -94,7 +94,7 @@ const NavBar = () => {
          <br/>
          <Container style={{display:'flex'}}>
              <PersonIcon fontSize="large"/>
-             <Link to='/UserProfile' className="link">Profile
+             <Link to='/MyProfile' className="link">Profile
              </Link>
          </Container>
          <br/>

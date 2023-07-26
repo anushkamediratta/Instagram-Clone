@@ -20,13 +20,11 @@ const App = ()=>{
     <Route exact path="/" element={<Signup/>} /> 
     <Route path="/login" element={<Login />} />  
     <Route path="/MainScreen" element={<MainScreen/>}/>
-    <Route path="/myPost" element={<MyProfile />} /> 
+    <Route path="/MyProfile" element={<MyProfile />} /> 
     <Route path="/allpost" element={<AllPost/>}/>
     <Route path="/SearchPage" element={<SearchPage/>}/>
     <Route path="/CreatePost" element={<CreatePost/>}/>
     <Route path="/UserProfile" element={<UserProfile/>}/>
-    
-    
     </Routes>
 </BrowserRouter>
 }

@@ -49,8 +49,9 @@ router.post("/login",(req,res)=>{
                     bcrypt.compare(password,dbUser.password)
                           .then(doMatch =>{
                             if(doMatch){
+                                const UserId=dbUser._id
                                 const token= jwt.sign({id:dbUser._id},SECRETKEY)
-                            return res.json({token})    
+                            return res.json({token,UserId})    
                             }else{
                                 return res.status(422).json({error:"Invalid Password"})
                             }

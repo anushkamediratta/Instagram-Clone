@@ -26,7 +26,6 @@ function Copyright(props) {
   );
 }
 
-
 const defaultTheme = createTheme();
 
 const Login=()=> {
@@ -44,8 +43,9 @@ const Login=()=> {
         })
         .then(res => res.json())
         .then(data =>{
-          console.log(data.token);
           localStorage.setItem("jwt",data.token)
+          localStorage.setItem("UserId",data.UserId+"")
+          console.log(data);
         })
   };
 

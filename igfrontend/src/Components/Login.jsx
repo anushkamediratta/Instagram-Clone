@@ -45,7 +45,6 @@ const Login=()=> {
         .then(data =>{
           localStorage.setItem("jwt",data.token)
           localStorage.setItem("UserId",data.UserId+"")
-          console.log(data);
         })
   };
 

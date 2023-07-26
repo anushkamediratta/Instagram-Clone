@@ -11,23 +11,70 @@ import IconButton from '@mui/joy/IconButton';
 import Input from '@mui/joy/Input';
 import Typography from '@mui/joy/Typography';
 import MoreHoriz from '@mui/icons-material/MoreHoriz';
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import ModeCommentOutlined from '@mui/icons-material/ModeCommentOutlined';
 import SendOutlined from '@mui/icons-material/SendOutlined';
 import Face from '@mui/icons-material/Face';
 import BookmarkBorderRoundedIcon from '@mui/icons-material/BookmarkBorderRounded';
 import { Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const InstaPost=({postDetail})=> {
 
   const navigate = useNavigate();
   const _id=postDetail.postedBy._id
-
+  
+  // function for opening userprofile
   const OpenUserProfile=()=>{
+    // sending  id to UserProfile Component to open profile of a particular user
     navigate('/UserProfile', {state:{id:_id}})
   }
+
+  // usestate to update details after liking or unliking the post
+  const [liked,setLiked]=useState(Boolean)
+
+  const likefunction=()=>
+  {if(liked == false)
+  {
+    fetch('http://localhost:4000/like',{
+    method:"Put",
+    headers:{
+      "Content-Type":"application/json",
+      "Authorization":"Bearer "+localStorage.getItem("jwt")
+  }
+    }).then(res=>res.json())
+    .then(data=>console.log(data))
     
+    setLiked(true)
+  }
+  else{
+    fetch('http://localhost:4000/unlike',{
+    method:"Put",
+    headers:{
+      "Content-Type":"application/json",
+      "Authorization":"Bearer "+localStorage.getItem("jwt")
+  }
+    }).then(res=>res.json())
+    .then(data=>console.log(data))
+    setLiked(false)
+  }
+}
+
+// style of like button
+const likeStyle={
+
+  color: liked ? 'red' : 'lightgrey',
+  
+  padding: '10px 20px',
+  border: 'none',
+  borderRadius: '4px',
+  cursor: 'pointer',
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}
+
   return <Container style={{height:'30rem',width:'30rem', marginTop:'50px'}}>
 
     <Card
@@ -75,8 +122,8 @@ const InstaPost=({postDetail})=> {
       </CardOverflow>
       <CardContent orientation="horizontal" sx={{ alignItems: 'center', mx: -1 }}>
         <Box sx={{ width: 0, display: 'flex', gap: 0.5 }}>
-          <IconButton variant="plain" color="neutral" size="sm">
-            <FavoriteBorder />
+          <IconButton variant="plain" color="neutral" size="sm"  style={likeStyle} onClick={likefunction}>
+            <FavoriteIcon />
           </IconButton>
           <IconButton variant="plain" color="neutral" size="sm">
             <ModeCommentOutlined />

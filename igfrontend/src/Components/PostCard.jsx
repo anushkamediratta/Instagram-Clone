@@ -33,19 +33,25 @@ const InstaPost=({postDetail})=> {
 
   // usestate to update details after liking or unliking the post
   const [liked,setLiked]=useState(Boolean)
-
+    //useState for updating likes
+  const [myPost,setmyPost]=useState(null)
+  // function for like and dislike
   const likefunction=()=>
   {if(liked == false)
   {
     fetch('http://localhost:4000/like',{
-    method:"Put",
-    headers:{
+    method:'put',
+    headers:{ 
       "Content-Type":"application/json",
       "Authorization":"Bearer "+localStorage.getItem("jwt")
-  }
+  },
+  body:JSON.stringify({
+    postId:postDetail._id
+    })
     }).then(res=>res.json())
-    .then(data=>console.log(data))
-    
+    .then(data=>{
+      setmyPost(data)
+    })
     setLiked(true)
   }
   else{
@@ -54,12 +60,41 @@ const InstaPost=({postDetail})=> {
     headers:{
       "Content-Type":"application/json",
       "Authorization":"Bearer "+localStorage.getItem("jwt")
-  }
+  },
+  body:JSON.stringify({
+    postId:postDetail._id
+    })
     }).then(res=>res.json())
-    .then(data=>console.log(data))
+    .then(data=>{
+      setmyPost(data)
+    })
     setLiked(false)
   }
 }
+
+  const[mycomment,setMycomment]=useState('')  
+  
+  
+  const commentfunction=()=>{
+    fetch('http://localhost:4000/comment',{
+    method:'put',
+    headers:{ 
+      "Content-Type":"application/json",
+      "Authorization":"Bearer "+localStorage.getItem("jwt")
+  },
+  body:JSON.stringify({
+    text:mycomment,
+    postId:postDetail._id
+    })
+    }).then(res=>res.json())
+    .then(data=>{
+    console.log(data);
+    setMycomment('')
+    })
+  }
+
+
+
 
 // style of like button
 const likeStyle={
@@ -159,7 +194,10 @@ const likeStyle={
           fontWeight="lg"
           textColor="text.primary"
         >
-         {postDetail.likes.length} likes
+         {
+          // postDetail.likes.length
+           myPost?.likes?.length || postDetail.likes.length    //if the postis liked it will update the value else it will show from the props postdetails
+          } likes
         </Link>
         <Typography fontSize="sm">
           <Link
@@ -195,12 +233,15 @@ const likeStyle={
           <Face />
         </IconButton>
         <Input
+         
           variant="plain"
           size="sm"
           placeholder="Add a comment…"
           sx={{ flexGrow: 1, mr: 1, '--Input-focusedThickness': '0px' }}
-        />
-        <Link disabled underline="none" role="button">
+          onChange={(e)=>setMycomment(e.target.value)}
+          value={mycomment}
+/>
+        <Link underline="none" role="button" onClick={commentfunction}>
           Post
         </Link>
       </CardOverflow>

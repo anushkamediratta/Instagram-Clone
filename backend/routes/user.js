@@ -35,7 +35,7 @@ router.put("/follow", requireLogin, async (req, res) => {
         { new: true }
       )
         .select("-password")
-        .then((result) => res.json(result));
+        .then((result) => res.json({result,updatedUser}));
     } catch (err) {
       return res.status(422).json({ error: err });
     }

@@ -26,6 +26,7 @@ const postSchema=new mongoose.Schema({
         type:ObjectId,
         ref:"User"
     }
+    
 })
 
 module.exports=mongoose.model("Post",postSchema)
